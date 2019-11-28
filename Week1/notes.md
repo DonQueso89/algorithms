@@ -8,4 +8,5 @@
 
 **Asymptotic Analysis**
 
-
+- course enough to ignore details (e.g. choice of architecture, language or compiler)
+- detailed enough to make useful comparisons between better and worse algorithms
