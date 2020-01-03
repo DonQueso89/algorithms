@@ -1,3 +1,14 @@
+"""
+Considerations on pivot choice, which is crucial for the running time.
+
+- Always taking the first element -> 1 recursive call on the right, equivalent to
+  series n + (n - 1) + (n - 2) .... + 1, equivalent to n * (n - 1) / 2 -> O(n^2)
+
+- Always magically choosing the median element -> n log n because we can always split the array in 2. Resulting in linear work for each log2n recursive call
+
+- Choosing a random pivot. Generally: A consistent split of 25-75 is good enough to get n log n complexity. The chance of getting this is ~50% for each recursive call.
+"""
+
 import argparse
 from random import randint
 

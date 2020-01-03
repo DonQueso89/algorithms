@@ -1,4 +1,3 @@
-import pytest
 import quicksort
 from hypothesis import given, settings, strategies as st
 
