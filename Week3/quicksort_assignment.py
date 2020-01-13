@@ -53,7 +53,7 @@ def partition(arr, pivot, low, high):
     return i - 1
 
 
-def quicksort(arr, low=0, high=None, num_cmps=0):
+def quicksort(arr, pivot_func, low=0, high=None, num_cmps=0):
     # pick element in arr
     # rearrange so that:
     # left of pivot < pivot
@@ -62,17 +62,30 @@ def quicksort(arr, low=0, high=None, num_cmps=0):
         high = len(arr)
     if high - low <= 1:
         return num_cmps
-    
+
     num_cmps += (high - low - 1)
-    pivot = sorted([arr[0], arr[-1], arr[(len(arr) - 1) // 2]])[1]  # randint(low, high - 1)
+    pivot = pivot_func(arr, low, high)
     pivot = partition(arr, pivot, low, high)
 
-    num_cmps = quicksort(arr, low, pivot, num_cmps)  # recurse left
-    return quicksort(arr, pivot + 1, high, num_cmps)  # recurse right
+    num_cmps = quicksort(arr, pivot_func, low, pivot, num_cmps)  # recurse left
+    return quicksort(arr, pivot_func, pivot + 1, high, num_cmps)  # recurse right
 
 
 if __name__ == "__main__":
     args = parser.parse_args()
     arr = [int(x) for x in open(args.infile).read().splitlines()]
-    num_cmps = quicksort(arr, 0, len(arr))
-    print(num_cmps)
+    _orig = arr[:]
+    for pivot_func in [
+        lambda a, l, h: l,
+        lambda a, l, h: h - 1,
+        lambda a, l, h: sorted([
+            (a[l], l),
+            (a[h-1], h-1),
+            (a[l:h][((h - l - 1) // 2) or 1], l + ((h - l - 1) // 2) or 1),
+            ],
+            key=lambda k: k[0]
+        )[1][1]
+    ]:
+        print(quicksort(arr, pivot_func, 0, len(arr)))
+        arr = _orig
+        _orig = _orig[:]
