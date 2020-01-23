@@ -1,0 +1,60 @@
+# Graphs and contraction algorithm
+
+## Graphs
+
+a graph consists of a set of vertices V and edges E (each edge is a pair of vertices)
+
+two flavors:
+    - Edges are directed (ordered pairs a.k.a. arcs)
+    - Edges are undirected
+
+a cut of a graph is a partition of V into two sets A and B
+the crossing edges of cut A, B are those with:
+
+- one endpoint in each of (A, B) (undirected)
+- tail in A, head in B (directed)
+
+
+## Minimum cut problem
+
+Problem in the domain of graph partitioning
+
+practical applications: 
+- minimum cuts may be used to represent weaknesses in a network (bottlenecks)
+- disrupting road networks in the least connected areas
+- community detection in social networks (areas that are densely connected amongst themselves but weakly toward the rest of the world)
+- image segmentation; each pixel is a vertex and using minimum cuts to see whether pixels are coming from the same object
+
+Given a set of vertices V and undirected edges E
+A minimum cut is a cut of V such that the number of crossing edges is minimal.
+
+given a connected undirected graph with n vertices and no parallel edges
+
+min. edges = n - 1
+max. edges = n choose 2
+
+dense graphs lean toward n^2 edges
+sparse graphs lean toward n edges
+
+
+## Representing graphs
+
+most common; adjacency matrix:
+
+- undirected graphs A = nxn matrix where n is number of vertices where Aij = 1 has an ij edge
+- for parallel edges, the matrix can have any number >= 1 for all the edges ij
+
+space complexity is quadratic in n
+
+adjacency lists
+
+- list of vertices
+- list of edges
+- each edge points to its vertices
+- each vertex points to its edges
+
+space complexity is m + n, linear in n 
+
+choice of representation depends on:
+- density of graph
+- operations that should be possible on the graph (e.g.: adjacency lists are good for searching a graph)
