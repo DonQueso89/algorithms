@@ -58,3 +58,36 @@ space complexity is m + n, linear in n
 choice of representation depends on:
 - density of graph
 - operations that should be possible on the graph (e.g.: adjacency lists are good for searching a graph)
+
+## The contraction algorithm
+
+- shows that random sampling can be very effective for fundamental graph problems
+
+### Pseudo code
+
+while > 2 vertices remaining
+    - pick a remaining edge uniformly at random
+    - do the contraction (fuse the two u, v vertices into one vertex)
+    - remove self-loops created by the contraction
+    - leave parallel edges
+return cut represented by final two vertices
+
+NOTE: this does not always return the minimum cut! so we need to know how often it gets
+the minimum cut.
+
+## Analysis
+
+- Fix a graph G = (V, E)
+- Fix a minimum cut (A, B), no other permutation is acceptable
+
+- let k = the number of crossing edges (A, B) in the minimum cut 
+- these edges are the set F
+
+- iff the algorithm only contracts edges in A and B, (i.e.: never contracts an edge in F) we get the minimum cut.
+- on the other side, if the algorithm contracts an edge in F, then a node from A and B will be on the same side of the cut, so it will not be the minimum cut
+
+therefore p(output is minimum cut (A,  B)) = p(algo never contracts edge in F)
+
+in other words: compute p(succes on iter i & success on iter i + 1 & succes on iter n)
+
+the chance that a crossing edge is chosen in the 1st iteration (as function of number vertices  n, number edges  m and number crossing edges k) == k/m
