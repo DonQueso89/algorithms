@@ -2,3 +2,4 @@ Slides
 Resources
 *.pyc
 input.txt
+.mypy_cache

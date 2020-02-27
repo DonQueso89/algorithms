@@ -139,3 +139,45 @@ observation:
 - getting rid of stuff in a directed acyclic graph can not  produce cycles
 
 ### Strongly connected components
+
+- regions where we can get from any vertex to any other vertex (can be the whole graph)
+- SCCs of a directed graph G are the equivalence classes of the relation u -> v, v -> u (reflexivity, symmetry, transitivity)
+- a modified version of DFS is appropriate because:
+    - it finds everything findable through a directed path
+    - it only finds an SCC if it is (coincidentally) initiated from the correct node
+    - this means that it can get a union of SCCs (provides no info about SCCs)
+    - therefore a preprocessing step is needed
+
+### Kosarajus two-pass algorithm (DFS with preprocessing step to get SCCs)
+
+Essentially two passes of DFS
+runtime O(m+n)
+
+pseudocode
+
+- let Grev = G with all arcs reversed
+- run DFS on Grev (can also just run DFS on G in reversed order)
+- this run computes an ordering of the nodes that allows the second pass to compute the SCCs
+- run DFS on G
+- go through vertices in decreasing order of the "finishing time" f(v) of the first DFS run
+- SCCs become groups of nodes with the same leader
+
+
+DFS-loop
+- let t = 0, (n nodes processed so far)
+- let s = null (the most recent vertex from which a DFS was initiated, computes leaders in second run)
+- assume nodes are labelled 1 to n
+    - for n down to 0
+    - if i not yet explored
+        - let s = i
+        - DFS(G, i)
+
+DFS
+- mark i as explored
+- set leader(i) := node s
+- for each arc(i, j) in G:
+    - if j not yet explored
+    - DFS(G, j)
+
+- t++
+- set f(i) = t
