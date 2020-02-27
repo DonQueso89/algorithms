@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "algorithms"
+version = "0.1.0"
+description = ""
+authors = ["Kees van Ekeren <kees.van.ekeren@mobpro.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+ipython = "^7.12.0"
+ipdb = "^0.12.3"
+numpy = "^1.18.1"
+pandas = "^1.0.1"
+black = "^19.10b0"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.3.5"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
